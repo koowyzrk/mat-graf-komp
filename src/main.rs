@@ -1,196 +1,71 @@
-pub trait Vector {
-    const ZERO: Self;
-    fn cross(&self, v: Self) -> Self;
-    fn dot(&self, v: Self) -> Self;
-    fn dot_product(&self, v: Self) -> f32;
-    fn add(&self, v: Self) -> Self;
-    fn sub(&self, v: Self) -> Self;
-    fn mul(&self, d: f32) -> Self;
-    fn div(&self, d: f32) -> Self;
-    fn length(&self) -> f32;
-    fn normalize(&self) -> Self;
-    fn angle(&self, v: Self) -> f32;
-}
-
-#[derive(Copy, Clone, Debug)]
-pub struct Vector2D {
-    x: f32,
-    y: f32,
-}
-
-#[derive(Copy, Clone, Debug)]
-pub struct Vector3D {
-    x: f32,
-    y: f32,
-    z: f32,
-}
-
-impl Vector2D {
-    pub fn new(x: f32, y: f32) -> Vector2D {
-        Vector2D { x, y }
-    }
-}
-impl Vector3D {
-    pub fn new(x: f32, y: f32, z: f32) -> Vector3D {
-        Vector3D { x, y, z }
-    }
-}
-
-impl Vector for Vector3D {
-    const ZERO: Vector3D = Vector3D {
-        x: 0.,
-        y: 0.,
-        z: 0.,
-    };
-
-    fn cross(&self, v: Self) -> Self {
-        Self {
-            x: self.y * v.z - self.z * v.y,
-            y: self.z * v.x - self.x * v.z,
-            z: self.x * v.y - self.y * v.x,
-        }
-    }
-
-    fn dot(&self, v: Self) -> Self {
-        Self {
-            x: self.x * v.x,
-            y: self.y * v.y,
-            z: self.y * v.y,
-        }
-    }
-
-    fn dot_product(&self, v: Self) -> f32 {
-        self.x * v.x + self.y * v.y + self.z * v.z
-    }
-
-    fn add(&self, v: Self) -> Self {
-        Self {
-            x: self.x + v.x,
-            y: self.y + v.y,
-            z: self.z + v.z,
-        }
-    }
-
-    fn sub(&self, v: Self) -> Self {
-        Self {
-            x: self.x - v.x,
-            y: self.y - v.y,
-            z: self.z - v.z,
-        }
-    }
-
-    fn mul(&self, d: f32) -> Self {
-        Self {
-            x: self.x * d,
-            y: self.y * d,
-            z: self.z * d,
-        }
-    }
-
-    fn div(&self, d: f32) -> Self {
-        Self {
-            x: self.x / d,
-            y: self.y / d,
-            z: self.z / d,
-        }
-    }
-
-    fn length(&self) -> f32 {
-        (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
-    }
-
-    fn normalize(&self) -> Self {
-        let length = self.length();
-
-        if length != 0. {
-            return self.div(length);
-        }
-
-        Self::ZERO
-    }
-
-    fn angle(&self, v: Self) -> f32 {
-        (self.dot_product(v) / (self.length() * v.length())).acos()
-    }
-}
-
-impl Vector for Vector2D {
-    const ZERO: Vector2D = Vector2D { x: 0., y: 0. };
-
-    fn cross(&self, v: Self) -> Self {
-        Self {
-            x: self.x * v.y - self.y * v.x,
-            y: self.y * v.x - self.x * v.y,
-        }
-    }
-
-    fn dot(&self, v: Self) -> Self {
-        Self {
-            x: self.x * v.x,
-            y: self.y * v.y,
-        }
-    }
-
-    fn dot_product(&self, v: Self) -> f32 {
-        self.x * v.x + self.y * v.y
-    }
-
-    fn add(&self, v: Self) -> Self {
-        Self {
-            x: self.x + v.x,
-            y: self.y + v.y,
-        }
-    }
-
-    fn sub(&self, v: Self) -> Self {
-        Self {
-            x: self.x - v.x,
-            y: self.y - v.y,
-        }
-    }
-
-    fn mul(&self, d: f32) -> Self {
-        Self {
-            x: self.x * d,
-            y: self.y * d,
-        }
-    }
-
-    fn div(&self, d: f32) -> Self {
-        Self {
-            x: self.x / d,
-            y: self.y / d,
-        }
-    }
-
-    fn length(&self) -> f32 {
-        (self.x.powi(2) + self.y.powi(2)).sqrt()
-    }
-
-    fn normalize(&self) -> Self {
-        let length = self.length();
-
-        if length != 0. {
-            return self.div(length);
-        }
-
-        Self::ZERO
-    }
-
-    fn angle(&self, v: Self) -> f32 {
-        (self.dot_product(v) / (self.length() * v.length())).acos()
-    }
-}
+mod matrix;
+mod vector;
+use matrix::Matrix;
+use vector::Vector;
 
 fn main() {
-    let v1 = Vector3D::new(0., 3., 0.);
-    let v2 = Vector3D::new(5., 5., 0.);
+    // let v1 = Vector::new([0.0, 3.0, 0.0]);
+    // let v2 = Vector::new([5.0, 5.0, 0.0]);
+    //
+    // println!("{:?}", v1.angle(v2).expect("angle").to_degrees());
+    //
+    // let v1 = Vector::new([4.0, 5.0, 1.0]);
+    // let v2 = Vector::new([4.0, 1.0, 3.0]);
+    //
+    // println!("{:?}", v1.cross(v2));
+    // println!("{:?}", v1.cross(v2).normalize());
 
-    println!("{:?}", v1.angle(v2).to_degrees());
+    let a = Matrix::new(vec![
+        vec![1.0, 2.0, 3.0],
+        vec![4.0, 5.0, 6.0],
+        vec![7.0, 8.0, 10.0],
+    ]);
 
-    let v1 = Vector3D::new(4., 5., 1.);
-    let v2 = Vector3D::new(4., 1., 3.);
+    let b = Matrix::new(vec![
+        vec![2.0, 0.0, 1.0],
+        vec![0.0, 1.0, 0.0],
+        vec![1.0, 0.0, 1.0],
+    ]);
 
-    println!("{:?}", v1.cross(v2));
-    println!("{:?}", v1.cross(v2).normalize());
+    println!("Matrix A:\n{}", a);
+    println!("Matrix B:\n{}", b);
+
+    let add = a.add(&b);
+    println!("A + B:\n{}", add);
+
+    let sub = a.sub(&b);
+    println!("A - B:\n{}", sub);
+
+    let scalar = a.scalar(2.0);
+    println!("A * 2:\n{}", scalar);
+
+    let transpose = a.transpose();
+    println!("A^T:\n{}", transpose);
+
+    let mul = a.mul(&b);
+    println!("A * B:\n{}", mul);
+
+    let det_a = a.determinant();
+    println!("det(A) = {:.3}", det_a);
+
+    if det_a != 0.0 {
+        let inv_a = a.inverse();
+        println!("A^-1:\n{}", inv_a);
+
+        // Verify A * A^-1 ≈ I
+        let identity_test = a.mul(&inv_a);
+        println!("A * A^-1  Identity:\n{}", identity_test);
+    }
+
+    let vec = Matrix::new(vec![vec![1.0], vec![0.0], vec![0.0], vec![1.0]]);
+    let rotation_y_90 = Matrix::rotate_y(std::f32::consts::FRAC_PI_2); // 90 degree
+
+    let rotated_vec = rotation_y_90.mul(&vec);
+    println!("Vector [1,0,0,1] rotated 90 around y:\n{}", rotated_vec);
+
+    let ab = a.mul(&b);
+    let ba = b.mul(&a);
+
+    println!("A * B:\n{}", ab);
+    println!("B * A:\n{}", ba);
 }
