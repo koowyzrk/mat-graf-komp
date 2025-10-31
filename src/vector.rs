@@ -86,3 +86,119 @@ impl Vector<3> {
         ])
     }
 }
+
+// use bytemuck::Zeroable;
+//
+// use crate::vec::ops::VectorOpsTrait;
+//
+// #[derive(Copy, Clone, Debug, PartialEq, Zeroable)]
+// pub struct Vector3D {
+//     pub x: f32,
+//     pub y: f32,
+//     pub z: f32,
+// }
+// #[derive(Copy, Clone, Debug, PartialEq, Zeroable)]
+// pub struct Vector2D {
+//     pub x: f32,
+//     pub y: f32,
+// }
+//
+// mod ops {
+//     pub(crate) trait VectorOpsTrait {
+//         fn new(x: f32, y: f32, z: f32) -> Self;
+//
+//         fn x(&self) -> f32;
+//         fn y(&self) -> f32;
+//         fn z(&self) -> f32;
+//     }
+// }
+//
+// pub trait VectorTrait: VectorOpsTrait + PartialEq + Zeroable + Copy {
+//     fn dot(&self, v: &Self) -> f32 {
+//         self.x() * v.x() + self.y() * v.y() + self.z() * v.z()
+//     }
+//
+//     fn add(&self, v: &Self) -> Self {
+//         Self::new(self.x() + v.x(), self.y() + v.y(), self.z() + v.z())
+//     }
+//
+//     fn sub(&self, v: &Self) -> Self {
+//         Self::new(self.x() - v.x(), self.y() - v.y(), self.z() - v.z())
+//     }
+//
+//     fn scale(&self, d: f32) -> Self {
+//         Self::new(self.x() * d, self.y() * d, self.z() * d)
+//     }
+//
+//     fn div(&self, d: f32) -> Self {
+//         Self::new(self.x() / d, self.y() / d, self.z() / d)
+//     }
+//
+//     fn length(&self) -> f32 {
+//         (self.x().powi(2) + self.y().powi(2) + self.z().powi(2)).sqrt()
+//     }
+//
+//     fn normalize(&self) -> Self {
+//         if *self == Self::zeroed() {
+//             return *self;
+//         }
+//
+//         self.div(self.length())
+//     }
+//
+//     fn angle(&self, v: &Self) -> f32 {
+//         (self.dot(v) / (self.length() * v.length())).acos()
+//     }
+// }
+//
+// impl Vector2D {
+//     pub fn new(x: f32, y: f32) -> Vector2D {
+//         Vector2D { x, y }
+//     }
+// }
+// impl Vector3D {
+//     pub fn new(x: f32, y: f32, z: f32) -> Vector3D {
+//         Vector3D { x, y, z }
+//     }
+//
+//     pub fn cross(&self, v: Self) -> Self {
+//         Self {
+//             x: self.y() * v.z() - self.z() * v.y(),
+//             y: self.z() * v.x() - self.x() * v.z(),
+//             z: self.x() * v.y() - self.y() * v.x(),
+//         }
+//     }
+// }
+//
+// impl VectorOpsTrait for Vector2D {
+//     fn new(x: f32, y: f32, _: f32) -> Vector2D {
+//         Vector2D::new(x, y)
+//     }
+//     fn x(&self) -> f32 {
+//         self.x
+//     }
+//     fn y(&self) -> f32 {
+//         self.y
+//     }
+//     fn z(&self) -> f32 {
+//         0.
+//     }
+// }
+//
+// impl VectorOpsTrait for Vector3D {
+//     fn new(x: f32, y: f32, z: f32) -> Vector3D {
+//         Vector3D { x, y, z }
+//     }
+//     fn x(&self) -> f32 {
+//         self.x
+//     }
+//     fn y(&self) -> f32 {
+//         self.y
+//     }
+//     fn z(&self) -> f32 {
+//         self.z
+//     }
+// }
+//
+// impl VectorTrait for Vector2D {}
+// impl VectorTrait for Vector3D {}
