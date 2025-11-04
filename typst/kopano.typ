@@ -481,7 +481,7 @@
 ]
 
 #slide(title: [Skalowanie wzdłuż osi układu współrzędnych])[
-  #set text(size: 0.9em)
+  // #set text(size: 0.9em)
   Skalowanie wzdłuż osi polega na zmianie wymiaru obiektu względem płaszczyzn współrzędnych.
   Jeżeli współczynniki skalowania są jednakowe, skalowanie jest *jednolite*;
   w przeciwnym razie — *niejednolite*.
@@ -499,7 +499,7 @@
 ]
 
 #slide(title: [Skalowanie jednolite])[
-  #set text(size: 0.9em)
+  // #set text(size: 0.9em)
   Jednolite skalowanie to przekształcenie liniowe, w którym każdy wymiar obiektu
   jest powiększany lub pomniejszany o ten sam współczynnik $k$.
   Skalowanie odbywa się względem początku układu współrzędnych.
@@ -516,7 +516,7 @@
 ]
 
 #slide(title: [Wizualizacja skalowania jednolitego (sześcian)])[
-  #set text(size: 0.9em)
+  // #set text(size: 1.0em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
@@ -529,15 +529,19 @@
       #align(center)[#text(size: 0.8em, "Sześcian po skalowaniu o współczynnik k = 2 \n (długość boku = 2)")]
     ],
   )
-  #v(2em)
+  #v(8em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
     [
       *Obliczenia:*
-      Dla punktu $P = vec(1, 0, 0)$ oraz macierzy:
+      \
+      Dla punktu $P = vec(1, 0, 0)$ oraz
+      \
+      \
+      macierzy:
       $S = physica.dmat(2, 2, 2, delim: "[", fill: 0)$
-      #v(1em)
+      #v(2em)
       mamy:
       $P' = S ⋅ P = vec(1 ⋅ 2 + 0 ⋅ 0 + 0 ⋅ 0, 1 ⋅ 0 + 0 ⋅ 2 + 0 ⋅ 0, 1 ⋅ 0 + 0 ⋅ 0 + 0 ⋅ 2) = vec(2, 0, 0)$
     ],
@@ -561,7 +565,7 @@
 ]
 
 #slide(title: [Skalowanie niejednolite (anisotropowe)])[
-  #set text(size: 0.9em)
+  // //#set text(size: 0.9em)
   Jeśli chcemy „rozciągnąć” lub „ściśnąć” obiekt, możemy zastosować różne współczynniki skalowania w różnych kierunkach.
   Takie przekształcenie nazywamy *skalowaniem niejednolitym (anisotropowym)*.
   Nierównomierna skala nie zachowuje kątów ani proporcji między wymiarami.
@@ -575,34 +579,19 @@
   - zmiana długości wzdłuż osi X, Y, Z następuje odpowiednio o współczynniki $k_x$, $k_y$, $k_z$,
   - pole powierzchni zmienia się proporcjonalnie do $k_x k_y$,
   - objętość zmienia się proporcjonalnie do $k_x k_y k_z$,
-]
 
-#slide(title: [Wizualizacja skalowania niejednolitego])[
-  #set text(size: 0.9em)
-
-  #grid(
-    columns: (1fr, 1fr),
-    gutter: 0em,
-    [
-      #image("transformations/scale_notuniform_1.png", width: 15cm)
-      #align(center)[#text(size: 0.8em, "Sześcian przed skalowaniem (długość boku = 1)")]
-    ],
-    [
-      #image("transformations/scale_notuniform.png", width: 15cm)
-      #align(center)[#text(size: 0.8em, "Sześcian po skalowaniu o róźne współczynniki k")]
-    ],
-  )
-  #v(2em)
+  #v(10em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
     [
       *Obliczenia:*
-      Dla punktu $P = vec(1, 0, 0)$ oraz macierzy:
+      Dla punktu $P = vec(1, 0, 0)$
+
+      oraz macierzy:
       $S = physica.dmat(2, 0.5, 1.5, delim: "[", fill: 0)$
-      #v(1em)
       mamy:
-      $P' = S ⋅ P = vec(1 ⋅ 2 + 0 ⋅ 0 + 0 ⋅ 0, 1 ⋅ 0 + 0 ⋅ 0.5 + 0 ⋅ 0, 1 ⋅ 0 + 0 ⋅ 0 + 0 ⋅ 1.5) = vec(2, 0, 0)$
+      $ P' = S ⋅ P = vec(1 ⋅ 2 + 0 ⋅ 0 + 0 ⋅ 0, 1 ⋅ 0 + 0 ⋅ 0.5 + 0 ⋅ 0, 1 ⋅ 0 + 0 ⋅ 0 + 0 ⋅ 1.5) = vec(2, 0, 0) $
     ],
     [
       Dla kolejnych wierzchołków sześcianu:
@@ -616,11 +605,19 @@
         physica.vecrow(1, 1, 1, delim: "[") → physica.vecrow(2.0, 0.5, 1.5, delim: "[")
       $
     ],
+    [
+      #image("transformations/scale_notuniform_1.png", width: 10cm)
+      #align(center)[#text(size: 0.8em, "Sześcian przed skalowaniem (długość boku = 1)")]
+    ],
+    [
+      #image("transformations/scale_notuniform.png", width: 10cm)
+      #align(center)[#text(size: 0.8em, "Sześcian po skalowaniu o róźne współczynniki k")]
+    ],
   )
 ]
 
 #slide(title: [Skalowanie wzdłuż jednej osi])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
@@ -646,7 +643,7 @@
 ]
 
 #slide(title: [Skalowanie w dowolnym kierunku])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Skalowanie nie musi odbywać się wyłącznie wzdłuż osi układu współrzędnych.
   Możemy skalować obiekt wzdłuż dowolnego kierunku określonego przez wektor jednostkowy *$physica.vu(n)$*.
   #v(1em)
@@ -663,11 +660,11 @@
 
   Rozpisując równanie $physica.vu(n)physica.vu(n)^T$, otrzymujemy:
   #v(1em)
-  #align(center)[
-    $physica.vu(n) = vec(n_x, n_y, n_z) => physica.vu(n)physica.vu(n)^T = mat(n_x^2, n_x n_y, n_x n_z; n_y n_x, n_y^2, n_y n_z; n_z n_x, n_z n_y, n_z^2)$
-  ]
+  $ physica.vu(n) = vec(n_x, n_y, n_z) => physica.vu(n)physica.vu(n)^T = mat(n_x^2, n_x n_y, n_x n_z; n_y n_x, n_y^2, n_y n_z; n_z n_x, n_z n_y, n_z^2) $
 
-  Po podstawieniu do $S = I + (k - 1)physica.vu(n)physica.vu(n)^T$, otrzymujemy:
+  #v(7em)
+  Po podstawieniu do $ S = I + (k - 1)physica.vu(n)physica.vu(n)^T,
+  $ otrzymujemy:
   #v(1em)
   #align(center)[
     $S(physica.vu(n),k) = mat(1 + (k-1)n_x^2, (k-1) n_x n_y, (k-1) n_x n_z; (k-1) n_y n_x, 1 + (k-1) n_y^2, (k-1) n_y n_z; (k-1) n_z n_x, (k-1) n_z n_y, 1 + (k-1) n_z^2)$
@@ -683,15 +680,15 @@
 ]
 
 #slide(title: [Przykład: skalowanie wzdłuż kierunku ukośnego])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Załóżmy, że chcemy skalować wzdłuż kierunku ukośnego, który leży w płaszczyźnie XY i biegnie pod kątem 45° do osi X oraz dla współczynnika skali $k = 2$. \
   Ten kierunek opisuje wektor:
   #v(1em)
   #align(center)[
-    $physica.va(n) = vec(1, 1, 0)$
+    $physica.va(n) = vec(1, 1, 0),$
   ]
   #v(1em)
-  ,który nie jest wektorem jednostkowym więc musimy go znormalizować. Jego długość teraz wynosi:
+  który nie jest wektorem jednostkowym więc musimy go znormalizować. Jego długość teraz wynosi:
   #align(center)[
     $abs(physica.va(n)) = sqrt(1^2 + 1^2 + 0^2) = sqrt(2)$
   ]
@@ -718,7 +715,6 @@
   #align(center)[
     $S = mat(1.5, 0.5, 0; 0.5, 1.5, 0; 0, 0, 1)$
   ]
-  #v(2em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
@@ -737,7 +733,7 @@
 ]
 
 #slide(title: [Odbicie względem płaszczyzny])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Odbicie (lub *lustrzane odbicie*) to przekształcenie liniowe, które odwraca położenie punktów obiektu względem danej płaszczyzny.
   W przestrzeni trójwymiarowej płaszczyzna odbicia przechodzi przez początek układu współrzędnych, a jej orientację określa wektor jednostkowy normalny $physica.vu(n)$.
   Odbicie można interpretować jako *skalowanie wzdłuż kierunku $physica.vu(n)$* ze współczynnikiem $k = -1$.
@@ -759,38 +755,36 @@
 ]
 
 #slide(title: [Przykład — odbicie względem płaszczyzny XY])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Rozważmy odbicie względem płaszczyzny XY, której wektor normalny to:
-  #v(1em)
-  #align(center)[$physica.vu(n) = vec(0, 0, 1)$]
-  *Macierz odbicia:*
-  #align(center)[
-    $R = mat(
+  $ physica.vu(n) = vec(0, 0, 1),
+   "Macierz odbicia:"
+     R = mat(
       1, 0, 0;
       0, 1, 0;
       0, 0, -1
-    )$
-  ]
-  #v(1em)
-  Dla wierzchołków piramidy mamy:
-  #v(0.5em)
-  $
-    physica.vecrow(0, -0.5, 0, delim: "[") → physica.vecrow(0, -0.5, 0, delim: "[") \
-    physica.vecrow(-0.5, 0, 0, delim: "[") → physica.vecrow(-0.5, 0, 0, delim: "[") \
-    physica.vecrow(0, 0.5, 0, delim: "[") → physica.vecrow(0, 0.5, 0, delim: "[") \
-    physica.vecrow(0.5, 0, 0, delim: "[") → physica.vecrow(0.5, 0, 0, delim: "[") \
-    physica.vecrow(0, 0, 1, delim: "[") → physica.vecrow(0, 0, -1, delim: "[")
-  $
-  #v(1em)
-  Wierzchołki leżące w płaszczyźnie XY pozostają niezmienione, natomiast punkt znajdujący się powyżej zostaje odbity symetrycznie poniżej niej.
-  #v(1em)
+    ) $
+  #h(10em) Dla wierzchołków piramidy mamy:
   #align(center)[
-    #image("transformations/piramid_refl.png", width: 15cm)
+    #grid(
+      gutter: 100pt,
+      columns: 2,
+      [$
+      physica.vecrow(0, -0.5, 0, delim: "[") → physica.vecrow(0, -0.5, 0, delim: "[") \
+      physica.vecrow(-0.5, 0, 0, delim: "[") → physica.vecrow(-0.5, 0, 0, delim: "[") \
+      physica.vecrow(0, 0.5, 0, delim: "[") → physica.vecrow(0, 0.5, 0, delim: "[") \
+      physica.vecrow(0.5, 0, 0, delim: "[") → physica.vecrow(0.5, 0, 0, delim: "[") \
+      physica.vecrow(0, 0, 1, delim: "[") → physica.vecrow(0, 0, -1, delim: "[")
+      $],[
+        #image("transformations/piramid_refl.png", width: 16cm)
+      ]
+    )
   ]
+  Wierzchołki leżące w płaszczyźnie XY pozostają niezmienione, natomiast punkt znajdujący się powyżej zostaje odbity symetrycznie poniżej niej.
 ]
 
 #slide(title: [Rzut równoległy jako przypadek skalowania])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Rzut równoległy (ortograficzny) można traktować jako *szczególny przypadek skalowania*, w którym współczynnik skali wzdłuż jednego z kierunków wynosi zero.
   W takim przypadku wszystkie punkty zostają „spłaszczone” na płaszczyznę — czyli ich współrzędne wzdłuż danego kierunku zanikają.
   #v(1em)
@@ -805,7 +799,7 @@
 ]
 
 #slide(title: [Rzutowanie na oś lub płaszczyznę kardynalną])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Rzutowanie na jedną z płaszczyzn głównych (kardynalnych) można przedstawić za pomocą *macierzy skalowania* ze współczynnikiem $k = 0$ w kierunku normalnym do tej płaszczyzny.
   #v(1em)
   W ten sposób rzut 3D → 2D realizowany jest przez „wyzerowanie” jednej współrzędnej punktu:
@@ -844,7 +838,7 @@
 ]
 
 #slide(title: [Przekształcenie skośne w 3D (Shearing)])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   *Przekształcenie skośne* (ang. *shearing*, inaczej *pochylenie* lub *skoszenie*) w przestrzeni trójwymiarowej polega na przesunięciu punktów obiektu wzdłuż jednego kierunku proporcjonalnie do ich położenia w innym kierunku.
   Przekształcenie to zachowuje objętość, ale *zniekształca kąty i kształty* obiektu.
   #v(1em)
@@ -868,7 +862,7 @@
     $
   ]
   gdzie $k_"xz"$ i $k_"yz"$ określają stopień pochylenia względem osi $z$.
-  #v(1em)
+  // #v(1em)
   Ogólnie istnieje sześć możliwych macierzy przekształceń skośnych w 3D — w zależności od tego, względem której osi wykonywane jest pochylenie:
   #align(center)[
     $
@@ -882,15 +876,14 @@
       mat(1, 0, 0; 0, 1, 0; k_"zx", k_"zy", 1)
     $
   ]
-  #v(1em)
+  #v(3em)
   *Własności przekształcenia skośnego:*
   - zachowuje objętość, ale nie zachowuje kątów ani kształtów,
   - jest liniowym przekształceniem (determinant macierzy = 1),
   - w połączeniu ze skalowaniem może imitować rotację z deformacją.
-]
+// ]
 
-#slide(title: [Przykład — przekształcenie skośne względem osi Z])[
-  #set text(size: 0.9em)
+// #slide(title: [Przykład — przekształcenie skośne względem osi Z])[
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
@@ -908,13 +901,13 @@
       Dla tego przekształcenia punkty przesuwają się proporcjonalnie do swojej współrzędnej $z$, tworząc efekt „pochylenia” obiektu w kierunku osi $x$ i $y$.
     ],
     [
-      #image("transformations/shear3d.png")
+      #image("transformations/shear3d.png", width: 80%)
     ],
   )
 ]
 
 #slide(title: [Łączenie transformacji])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   W praktyce przekształcenia obiektów w grafice komputerowej rzadko wykonuje się pojedynczo.
   Najczęściej stosuje się ich *sekwencję* — np. *skalowanie*, potem *rotację*.
   Aby uprościć obliczenia, można je połączyć w jedną macierz transformacji.
@@ -932,7 +925,7 @@
   #v(1em)
   Kolejność jest *istotna* — najpierw stosujemy transformację $A$, potem $B$.
   Mnożenie macierzy *nie jest przemienne*, więc $B ⋅ A ≠ A ⋅ B$.
-  #v(4em)
+  #v(12em)
   *Przykład:*
   #align(center)[
     $
@@ -963,7 +956,7 @@
       0, 0, 1
     )$
   ]
-  #v(5em)
+  #v(12em)
   Wyniki tych dwóch operacji różnią się geometrycznie. Przykład dla sześcianu.
   #v(1em)
   #grid(
@@ -1008,7 +1001,7 @@
 ]
 
 #slide(title: [Zastosowania przekształceń liniowych w 3D])[
-  #set text(size: 0.9em)
+  //#set text(size: 0.9em)
   Przekształcenia liniowe stanowią podstawowy element grafiki komputerowej 3D, umożliwiając opis i kontrolę położenia, orientacji oraz kształtu obiektów w przestrzeni.
   W praktyce wykorzystywane są w wielu dziedzinach technologii i nauki.
   #v(1em)
@@ -1040,7 +1033,7 @@
 ]
 
 #slide(title: [])[
-  #set text(size: 4em)
+  //#set text(size: 4em)
   #align(center)[
     *Dziękujemy za uwagę.*
   ]

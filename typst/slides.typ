@@ -1,6 +1,6 @@
 #import "@preview/definitely-not-isec-slides:1.0.1": *
 #import "@preview/pavemat:0.2.0": pavemat
-#import "@preview/physica:0.9.7"
+#import "@preview/physica:0.9.6"
 
 #show: definitely-not-isec-theme.with(
   aspect-ratio: "16-9",
