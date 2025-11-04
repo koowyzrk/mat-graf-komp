@@ -1,0 +1,10 @@
+rog:
+  type: Web
+  author: Jacek Rogowski
+  title: Matematyka Grafiki Komputerowej - Przestrzenie liniowe
+
+kij:
+  type: Video
+  author: J. Kijowski
+  url: https://www.youtube.com/watch?v=BS38_8MlTjo
+  title: Przestrzeń afiniczna

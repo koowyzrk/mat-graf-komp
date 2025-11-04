@@ -9,12 +9,25 @@
 {
   # https://devenv.sh/basics/
   env.GREET = "devenv";
+  # env.QT_PLUGIN_PATH = "${pkgs.qt6.qtbase}/lib/qt-6/plugins";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = with pkgs; [
+    git
+    python313Packages.tkinter
+    ruff
+    pyright
+  ];
 
   # https://devenv.sh/languages/
-  languages.rust.enable = true;
+  languages = {
+    rust.enable = true;
+    typst.enable = true;
+    python = {
+      enable = true;
+      uv.enable = true;
+    };
+  };
 
   # https://devenv.sh/processes/
   # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
@@ -25,12 +38,6 @@
   # https://devenv.sh/scripts/
   scripts.hello.exec = ''
     echo hello from $GREET
-  '';
-
-  # https://devenv.sh/basics/
-  enterShell = ''
-    hello         # Run scripts directly
-    git --version # Use packages
   '';
 
   # https://devenv.sh/tasks/
