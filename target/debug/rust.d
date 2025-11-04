@@ -1,0 +1,1 @@
+/home/kwzrk/studies/5-term/mat-graf-komp/MGK/target/debug/rust: /home/kwzrk/studies/5-term/mat-graf-komp/MGK/src/lib.rs /home/kwzrk/studies/5-term/mat-graf-komp/MGK/src/main.rs /home/kwzrk/studies/5-term/mat-graf-komp/MGK/src/matrix.rs /home/kwzrk/studies/5-term/mat-graf-komp/MGK/src/vector.rs

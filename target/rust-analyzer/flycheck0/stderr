@@ -1,0 +1,98 @@
+   0.039662524s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint: fingerprint error for rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("rust", ["lib"], "/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/src/lib.rs", Edition2024) }
+   0.039673928s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/target/debug/.fingerprint/rust-49c9d24bf2b5e127/lib-rust`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_main
+  16: <unknown>
+   0.040082773s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint: fingerprint error for rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("rust", ["lib"], "/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/src/lib.rs", Edition2024) }
+   0.040099091s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/target/debug/.fingerprint/rust-5d3eb4a9a4c1519c/test-lib-rust`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_main
+  16: <unknown>
+   0.040183022s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint: fingerprint error for rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust)/Check { test: false }/TargetInner { name: "rust", doc: true, ..: with_path("/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/src/main.rs", Edition2024) }
+   0.040187533s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/target/debug/.fingerprint/rust-6b0126a3a8fc0d58/bin-rust`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_main
+  16: <unknown>
+   0.040287615s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint: fingerprint error for rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust)/Check { test: true }/TargetInner { name: "rust", doc: true, ..: with_path("/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/src/main.rs", Edition2024) }
+   0.040290919s  INFO prepare_target{force=false package_id=rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust) target="rust"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust/target/debug/.fingerprint/rust-32c051f921f7e08f/test-bin-rust`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_main
+  16: <unknown>
+    Checking rust v0.1.0 (/home/kwzrk/studies/5-term/mat-graf-komp/MGK/rust)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
