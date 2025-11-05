@@ -34,14 +34,8 @@
 #slide(title: [Agenda])[
   + Czym jest przekształcenie liniowe - typy przekształceń.
   + Rotacja.
-    - Rotacja wokół osi kardynalnych.
-    - Rotacja wokół dowolnej osi.
   + Skalowanie.
-    - Skalowanie wokół osi kardynalnych.
-    - Skalowanie wokół dowolnej osi.
   + Projekcja ortograficzna.
-    - Rzutowanie na oś kardynalną lub płaszczyznę.
-    - Rzutowanie na dowolną linię lub płaszczyznę.
   + Odbicie.
   + Shearing.
   + Łączenie transformacji.
@@ -165,16 +159,15 @@
   \
   Możemy zapisać vector $arrow(v) = vec(3, 5, 2)$, jako liniową kombinację wektorów bazy.
   $ arrow(v) = vec(3, 5, 2) = 3 vec(1, 0, 0) + 5 vec(0, 1, 0) + 2 vec(0, 0, 1) $
+  #v(2em)
   Stosując przekształcenie liniowe na liniowej kombinacji wektorów opisujących
   wektor $arrow(v)$ możemy zapisać:
   $ T(arrow(v)) = 3T vec(1, 0, 0) + 5T vec(0, 1, 0) + 2T vec(0, 0, 1) $
+  #v(2em)
   Innymi słowy aby dowiedzieć się gdzie wektor $arrow(v)$ zostanie przekształcony,
   musimy dowiedzieć się gdzie wektory $vec(1, 0, 0), vec(0, 1, 0), vec(0, 0, 1)$ zostaną
   przekształcone.
 
-  \
-  \
-  \
   \
   \
   \
@@ -197,7 +190,6 @@
 
   Powyższe przekształcenie można zapisać w formie macierzy:
   $ M = mat(-1, 3, 1; 4, 2, 4; 2, 1, 3) $
-  #v(1em)
   Zatem powyższe przekształcenie możemy zapisać jako mnożenie wektora przez macierz:
   $ T(arrow(v)) = M dot vec(3, 5, 2) = mat(-1, 3, 1; 4, 2, 4; 2, 1, 3) vec(3, 5, 2) = vec(17, 40, 17) $
 
@@ -211,6 +203,8 @@
     $ "i" "punkt" C = vec(2, 9, 3) "do" "postaci" T(C) = vec(9, 2, 3) $
 
     Punkty A, B, C przed przekształceniem można zapisać w formie macierzy $A = mat(1, 3, 2; 2, 7, 9; 3, 4, 3)$
+
+    \
     Punkty A, B, C po przekształceniu można zapisać w formie macierzy $B = mat(5, -1, 9; -2, 4, 2; 6, -1, 2)$
 
     \
@@ -254,7 +248,7 @@
   ]
 ]
 
-#slide(title: [Przekształcenia przykład])[
+#slide(title: [Przykład - różnica transformacji])[
   Przykład różnicy transformacji liniowej od afinicznej dla sześcianu,
   rozpiętego na punktach: $ A = {0, 0, 0}, B = {1, 1, 1} $
 
@@ -313,7 +307,7 @@
 
 ]
 
-#slide(title: [Rotacja w 3d])[
+#slide(title: [Rotacja w przestrzeni trójwymiarowej])[
 
 
   #figure(
@@ -478,10 +472,7 @@
   #v(1em)
   gdzie:
   - $k_x$, $k_y$, $k_z$ – współczynniki skali wzdłuż osi $x$, $y$, $z$
-]
-
-#slide(title: [Skalowanie wzdłuż osi układu współrzędnych])[
-  // #set text(size: 0.9em)
+  #v(4em)
   Skalowanie wzdłuż osi polega na zmianie wymiaru obiektu względem płaszczyzn współrzędnych.
   Jeżeli współczynniki skalowania są jednakowe, skalowanie jest *jednolite*;
   w przeciwnym razie — *niejednolite*.
@@ -704,13 +695,11 @@
   #align(center)[
     $physica.vu(n)physica.vu(n)^T = frac(1, 2) mat(1, 1, 0; 1, 1, 0; 0, 0, 0)$
   ]
-  #v(1em)
+  #v(1.2em)
   Po podstawieniu do równania na $S$:
-  #v(1em)
   #align(center)[
     $S = mat(1, 0, 0; 0, 1, 0; 0, 0, 1) + (2 - 1) ⋅ frac(1, 2) mat(1, 1, 0; 1, 1, 0; 0, 0, 0)$
   ]
-  #v(1em)
   Ostatecznie:
   #align(center)[
     $S = mat(1.5, 0.5, 0; 0.5, 1.5, 0; 0, 0, 1)$
@@ -938,25 +927,20 @@
       )
     $
   ]
-  #v(0.5em)
   Kolejność zastosowania:
-  #v(0.5em)
-  #align(center)[
-    $M_"RS" = R_z ⋅ S$  ⟹  najpierw skalowanie, potem rotacja \
-    $M_"SR" = S ⋅ R_z$  ⟹  najpierw rotacja, potem skalowanie \
-    #v(2em)
-    $M_"RS" = mat(
-      0, -1, 0;
-      2, 0, 0;
-      0, 0, 1
-    )$
-    $M_"SR" = mat(
-      0, -2, 0;
-      1, 0, 0;
-      0, 0, 1
-    )$
-  ]
-  #v(12em)
+  \
+  $ M_"RS" = R_z ⋅ S => "najpierw skalowanie, potem rotacja" $
+  $ M_"SR" = S ⋅ R_z => "najpierw rotacja, potem skalowanie" $
+  $ M_"RS" = mat(
+    0, -1, 0;
+    2, 0, 0;
+    0, 0, 1
+  ),
+  M_"SR" = mat(
+    0, -2, 0;
+    1, 0, 0;
+    0, 0, 1
+  ) $
   Wyniki tych dwóch operacji różnią się geometrycznie. Przykład dla sześcianu.
   #v(1em)
   #grid(
@@ -964,23 +948,21 @@
     gutter: 0em,
     [
       #align(center)[
-        #image("transformations/composition.png")
+        #image("assets/comp.png", width: 56%),
       ]
+
     ],
     [
       #align(center)[
-        $A = (0,0,0) \
-        B = (1,0,0) \
-        C = (1,1,0) \
-        D = (0,1,0) \
-        E = (0,0,1) \
-        F = (1,0,1) \
-        G = (1,1,1) \
-        H = (0,1,1)$
+        $$
+        $$
+        $ A = (0,0,0), B = (1,0,0) $
+        $ C = (1,1,0), D = (0,1,0) $
+        $ E = (0,0,1), F = (1,0,1) $
+        $ G = (1,1,1), H = (0,1,1) $
       ]
     ],
   )
-  #v(2em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
@@ -1033,7 +1015,7 @@
 ]
 
 #slide(title: [])[
-  //#set text(size: 4em)
+  #set text(size: 7em)
   #align(center)[
     *Dziękujemy za uwagę.*
   ]

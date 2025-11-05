@@ -68,4 +68,9 @@ fn main() {
 
     println!("A * B:\n{}", ab);
     println!("B * A:\n{}", ba);
+
+    let mat = Matrix::scale(3., 3., 3.);
+    let det = mat.determinant();
+    println!("B * A:\n{}", mat);
+    println!("{}", det);
 }
