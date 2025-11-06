@@ -249,7 +249,7 @@
   ]
 ]
 
-#slide(title: [Przykład - różnica transformacji])[
+#slide(title: [Przykład - różnica transformacji liniowej od afinicznej])[
   Przykład różnicy transformacji liniowej od afinicznej dla sześcianu,
   rozpiętego na punktach: $ A = {0, 0, 0}, B = {1, 1, 1} $
 
@@ -406,7 +406,7 @@
     Dla wektora $arrow(a)$ podanego na rysunku możemy to zrobić w następujący sposób:
     - Użyć macierzy rotacji wokół osi $X$ aby przekształcić wektor $arrow(a)$ do
       wektora oznaczonego na rysunku jako $arrow(b)$. W tym celu musimy znaleźć kąt
-      pomiędzy wektorem $arrow(a)$ a osią $X$. Jeżeli $g = a_y^2 + a_z^2$
+      pomiędzy wektorem $arrow(a)$ a osią $X$. Jeżeli $g = a_y^2 + a_z^2$.
       $ cos alpha = a_z / g $
       Mając kąt $alpha$, możemy zastosować macierz rotacji dla osi $X$ aby
       przekształcić wektor do płaszczyzny $X Z$ czyli do postaci wektora $arrow(b)$.
@@ -452,7 +452,7 @@
   #align(center)[
     #figure(
       image("images/rotate_vec.png", width: 38%),
-      caption: [Rotacja wokół wektora $arrow(v) = vec(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3)$, o 90 stopni.],
+      caption: [Rotacja wokół wektora $arrow(v) = vec(0, sqrt(2)/2, sqrt(2)/2)$, o 90 stopni.],
     )
   ]
 
