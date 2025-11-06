@@ -14,11 +14,10 @@
   institute: [Politechnika Łódzka],
   logo: image("uni_logo/uni_logo.png", width: 5cm),
   config-info(
-    title: [Przekształcenia Liniowe w 3D \ Rotacja, Odbicie, Skalowanie],
+    title: [Przekształcenia liniowe w 3D \ Rotacja,Skalowanie,Odbicie],
     authors: ([Jan Banaszkiewicz], [Jakub Kopaniewski]),
     extra: [*Matematyka Grafiki Komputerowej*],
     footer: [Jan Banaszkiewicz, Jakub Kopaniewski],
-    download-qr: "",
   ),
   config-common(
     handout: false,
@@ -32,12 +31,14 @@
 
 #title-slide()
 #slide(title: [Agenda])[
+  + Rodzaje przekształceń geometrycznych.
+  + Czym jest przestrzeń liniowa.
   + Czym jest przekształcenie liniowe - typy przekształceń.
   + Rotacja.
   + Skalowanie.
-  + Projekcja ortograficzna.
   + Odbicie.
-  + Shearing.
+  + Rzut równoległy (Orthographic projection).
+  + Przekształcenie skośne (Shearing).
   + Łączenie transformacji.
 ]
 
@@ -82,7 +83,7 @@
 
     #set text(size: 20pt)
 
-    + $forall_(x,y,z in V) #h(1em) (x, y) + z = x + (y = z),$
+    + $forall_(x,y,z in V) #h(1em) (x + y) + z = x + (y + z),$
     + $exists_(theta in V) forall_(x in V) #h(1em) x + theta = x,$
     + $forall_(x in V) exists_(-x in V) #h(1em) x + (-x) = theta,$
     + $forall_(x, y in V) #h(1em) x + y = y + x,$
@@ -288,9 +289,9 @@
   Przekształcenia wchodzące w skład przekształceń liniowych: #h(11em)
   - Rotacja
   - Skalowanie
-  - Rzut ortograficzny
   - Odbicie
-  - Shear
+  - Rzut równoległy (Orthographic projection).
+  - Przekształcenie skośne (Shearing).
   #align(center)[
     #grid(
       columns: 2,
@@ -298,18 +299,16 @@
       figure(image("images/rotate.png", width: 80%), caption: [Rotacja]),
       figure(image("images/scale.png", width: 80%), caption: [Skalowanie]),
 
-      figure(image("images/ortho.png", width: 60%), caption: [Rzut ortograficzny]),
+      figure(image("images/ortho.png", width: 60%), caption: [Rzut równoległy]),
       figure(image("images/reflect.png", width: 60%), caption: [Odbicie]),
 
-      figure(image("images/shear.png", width: 60%), caption: [Shear]),
+      figure(image("images/shear.png", width: 60%), caption: [Przekształcenie skośne]),
     )
   ]
 
 ]
 
 #slide(title: [Rotacja w przestrzeni trójwymiarowej])[
-
-
   #figure(
     image("assets/Rotation_around_xaxis_3d.png", width: 80%),
     caption: [Rotacja wokół osi x w 3d],
@@ -461,7 +460,7 @@
   powierzchnie i objętości figur.
 ]
 
-#slide(title: [Skalowanie obiektów w przestrzeni 3D])[
+#slide(title: [Skalowanie w przestrzeni trójwymiarowej])[
   #set text(size: 0.9em)
   Skalowanie to przekształcenie liniowe zmieniające rozmiar obiektu względem początku układu współrzędnych o zadany współczynnik *k*.
   Dla przestrzeni trójwymiarowej macierz skalowania ma postać:
@@ -555,10 +554,10 @@
   a objętość zwiększyła się $8$-krotnie ($2^3 = 8$).
 ]
 
-#slide(title: [Skalowanie niejednolite (anisotropowe)])[
+#slide(title: [Skalowanie niejednolite])[
   // //#set text(size: 0.9em)
   Jeśli chcemy „rozciągnąć” lub „ściśnąć” obiekt, możemy zastosować różne współczynniki skalowania w różnych kierunkach.
-  Takie przekształcenie nazywamy *skalowaniem niejednolitym (anisotropowym)*.
+  Takie przekształcenie nazywamy *skalowaniem niejednolitym*.
   Nierównomierna skala nie zachowuje kątów ani proporcji między wymiarami.
   #v(1em)
   *Macierz skalowania:*
@@ -596,6 +595,7 @@
         physica.vecrow(1, 1, 1, delim: "[") → physica.vecrow(2.0, 0.5, 1.5, delim: "[")
       $
     ],
+
     [
       #image("transformations/scale_notuniform_1.png", width: 10cm)
       #align(center)[#text(size: 0.8em, "Sześcian przed skalowaniem (długość boku = 1)")]
@@ -651,11 +651,12 @@
 
   Rozpisując równanie $physica.vu(n)physica.vu(n)^T$, otrzymujemy:
   #v(1em)
-  $ physica.vu(n) = vec(n_x, n_y, n_z) => physica.vu(n)physica.vu(n)^T = mat(n_x^2, n_x n_y, n_x n_z; n_y n_x, n_y^2, n_y n_z; n_z n_x, n_z n_y, n_z^2) $
+  $
+    physica.vu(n) = vec(n_x, n_y, n_z) => physica.vu(n)physica.vu(n)^T = mat(n_x^2, n_x n_y, n_x n_z; n_y n_x, n_y^2, n_y n_z; n_z n_x, n_z n_y, n_z^2)
+  $
 
   #v(7em)
-  Po podstawieniu do $ S = I + (k - 1)physica.vu(n)physica.vu(n)^T,
-  $ otrzymujemy:
+  Po podstawieniu do $ S = I + (k - 1)physica.vu(n)physica.vu(n)^T, $ otrzymujemy:
   #v(1em)
   #align(center)[
     $S(physica.vu(n),k) = mat(1 + (k-1)n_x^2, (k-1) n_x n_y, (k-1) n_x n_z; (k-1) n_y n_x, 1 + (k-1) n_y^2, (k-1) n_y n_z; (k-1) n_z n_x, (k-1) n_z n_y, 1 + (k-1) n_z^2)$
@@ -746,27 +747,30 @@
 #slide(title: [Przykład — odbicie względem płaszczyzny XY])[
   //#set text(size: 0.9em)
   Rozważmy odbicie względem płaszczyzny XY, której wektor normalny to:
-  $ physica.vu(n) = vec(0, 0, 1),
-   "Macierz odbicia:"
-     R = mat(
+  $
+    physica.vu(n) = vec(0, 0, 1),
+    "Macierz odbicia:"
+    R = mat(
       1, 0, 0;
       0, 1, 0;
       0, 0, -1
-    ) $
+    )
+  $
   #h(10em) Dla wierzchołków piramidy mamy:
   #align(center)[
     #grid(
       gutter: 100pt,
       columns: 2,
       [$
-      physica.vecrow(0, -0.5, 0, delim: "[") → physica.vecrow(0, -0.5, 0, delim: "[") \
-      physica.vecrow(-0.5, 0, 0, delim: "[") → physica.vecrow(-0.5, 0, 0, delim: "[") \
-      physica.vecrow(0, 0.5, 0, delim: "[") → physica.vecrow(0, 0.5, 0, delim: "[") \
-      physica.vecrow(0.5, 0, 0, delim: "[") → physica.vecrow(0.5, 0, 0, delim: "[") \
-      physica.vecrow(0, 0, 1, delim: "[") → physica.vecrow(0, 0, -1, delim: "[")
-      $],[
+        physica.vecrow(0, -0.5, 0, delim: "[") → physica.vecrow(0, -0.5, 0, delim: "[") \
+        physica.vecrow(-0.5, 0, 0, delim: "[") → physica.vecrow(-0.5, 0, 0, delim: "[") \
+        physica.vecrow(0, 0.5, 0, delim: "[") → physica.vecrow(0, 0.5, 0, delim: "[") \
+        physica.vecrow(0.5, 0, 0, delim: "[") → physica.vecrow(0.5, 0, 0, delim: "[") \
+        physica.vecrow(0, 0, 1, delim: "[") → physica.vecrow(0, 0, -1, delim: "[")
+      $],
+      [
         #image("transformations/piramid_refl.png", width: 16cm)
-      ]
+      ],
     )
   ]
   Wierzchołki leżące w płaszczyźnie XY pozostają niezmienione, natomiast punkt znajdujący się powyżej zostaje odbity symetrycznie poniżej niej.
@@ -870,9 +874,9 @@
   - zachowuje objętość, ale nie zachowuje kątów ani kształtów,
   - jest liniowym przekształceniem (determinant macierzy = 1),
   - w połączeniu ze skalowaniem może imitować rotację z deformacją.
-// ]
+  // ]
 
-// #slide(title: [Przykład — przekształcenie skośne względem osi Z])[
+  // #slide(title: [Przykład — przekształcenie skośne względem osi Z])[
   #grid(
     columns: (1fr, 1fr),
     gutter: 0em,
@@ -931,16 +935,18 @@
   \
   $ M_"RS" = R_z ⋅ S => "najpierw skalowanie, potem rotacja" $
   $ M_"SR" = S ⋅ R_z => "najpierw rotacja, potem skalowanie" $
-  $ M_"RS" = mat(
-    0, -1, 0;
-    2, 0, 0;
-    0, 0, 1
-  ),
-  M_"SR" = mat(
-    0, -2, 0;
-    1, 0, 0;
-    0, 0, 1
-  ) $
+  $
+    M_"RS" = mat(
+      0, -1, 0;
+      2, 0, 0;
+      0, 0, 1
+    ),
+    M_"SR" = mat(
+      0, -2, 0;
+      1, 0, 0;
+      0, 0, 1
+    )
+  $
   Wyniki tych dwóch operacji różnią się geometrycznie. Przykład dla sześcianu.
   #v(1em)
   #grid(
