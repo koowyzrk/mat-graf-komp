@@ -14,7 +14,7 @@
   institute: [Politechnika Łódzka],
   logo: image("uni_logo/uni_logo.png", width: 5cm),
   config-info(
-    title: [Przekształcenia liniowe w 3D \ Rotacja,Skalowanie,Odbicie],
+    title: [Przekształcenia liniowe w 3D \ Rotacja, Skalowanie, Odbicie],
     authors: ([Jan Banaszkiewicz], [Jakub Kopaniewski]),
     extra: [*Matematyka Grafiki Komputerowej*],
     footer: [Jan Banaszkiewicz, Jakub Kopaniewski],
@@ -49,7 +49,7 @@
   ]
   #figure(
     table(
-      fill: (x, y) => if (x == 1 and y == 2) or (x == 1 and y == 6) { gray },
+      // fill: (x, y) => if (x == 1 and y == 2) or (x == 1 and y == 6) { gray },
       columns: 5,
       stroke: .5pt,
       align: (left, center, center, center, center, center),
@@ -146,8 +146,7 @@
   #v(1em);
   #tip-box(title: "")[
     Warto zauważyć że ta definicja nie mówi nam nic o punktach, jednak dla rozpatrywanych
-    przez nas transformacji liniowych (nie jest prawdą dla np. Transformacji
-    nieliniowych), po oznaczeniu początku układu $O$, można myśleć o punktach
+    przez nas transformacji liniowych, po oznaczeniu początku układu $O$, można myśleć o punktach
     $P$ jako o wektorze [$arrow(O P)$].
   ]
 

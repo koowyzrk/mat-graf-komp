@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+bytemuck = { version = "*", features = ["derive", "zeroable_atomics"] }
+zerocopy = { version = "*", features = ["derive", "simd"] }
+zerocopy-derive = "0.8.27"
