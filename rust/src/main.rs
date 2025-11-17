@@ -1,20 +1,44 @@
 mod matrix;
+mod quat;
 mod vector;
 use matrix::Matrix;
-use vector::Vector;
+use quat::*;
+use vector::*;
 
 fn main() {
-    // let v1 = Vector::new([0.0, 3.0, 0.0]);
-    // let v2 = Vector::new([5.0, 5.0, 0.0]);
-    //
-    // println!("{:?}", v1.angle(v2).expect("angle").to_degrees());
-    //
-    // let v1 = Vector::new([4.0, 5.0, 1.0]);
-    // let v2 = Vector::new([4.0, 1.0, 3.0]);
-    //
-    // println!("{:?}", v1.cross(v2));
-    // println!("{:?}", v1.cross(v2).normalize());
+    test_quat();
+}
 
+pub fn test_quat() {
+    let axis_q = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
+    let point = Vec3::from([1.0, 1.0, 0.0]);
+
+    let rotated = axis_q.rotate_vector(point);
+
+    println!("{:?}", rotated);
+
+    // testowanko mnożenia kwaternionów
+    let q1 = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
+    let q2 = Quat::from_axis_angle([1.0, 1.0, -1.0], 90.);
+
+    println!("{}", q1 * q2);
+    println!("{}", q2 * q1);
+}
+
+pub fn test_vector() {
+    let v1 = Vec3::from([0.0, 3.0, 0.0]);
+    let v2 = Vec3::from([5.0, 5.0, 0.0]);
+
+    println!("{:?}", v1.angle(&v2).to_degrees());
+
+    let v1 = Vec3::from([4.0, 5.0, 1.0]);
+    let v2 = Vec3::from([4.0, 1.0, 3.0]);
+
+    println!("{:?}", v1.cross(v2));
+    println!("{:?}", v1.cross(v2).normalize());
+}
+
+pub fn test_matrix() {
     let a = Matrix::new(vec![
         vec![1.0, 2.0, 3.0],
         vec![4.0, 5.0, 6.0],

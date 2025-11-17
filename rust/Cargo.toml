@@ -7,3 +7,4 @@ edition = "2024"
 bytemuck = { version = "*", features = ["derive", "zeroable_atomics"] }
 zerocopy = { version = "*", features = ["derive", "simd"] }
 zerocopy-derive = "0.8.27"
+derive_more = { version = "2", features = ["from", "display", "add"] }

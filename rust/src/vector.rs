@@ -1,4 +1,5 @@
 use bytemuck::Zeroable;
+use derive_more::*;
 
 use crate::vector::ops::VectorOpsTrait;
 
@@ -10,7 +11,7 @@ pub struct Vec4 {
     pub z: f32,
     pub w: f32,
 }
-#[derive(Copy, Clone, Debug, PartialEq, Zeroable)]
+#[derive(Copy, Clone, Debug, PartialEq, Zeroable, From)]
 #[repr(C)]
 pub struct Vec3 {
     pub x: f32,
@@ -76,6 +77,13 @@ impl Vec2 {
         Vec2 { x, y }
     }
 }
+
+impl From<[f32; 2]> for Vec2 {
+    fn from(value: [f32; 2]) -> Self {
+        Vec2::new(value[0], value[1])
+    }
+}
+
 impl Vec3 {
     pub fn new(x: f32, y: f32, z: f32) -> Vec3 {
         Vec3 { x, y, z }
@@ -87,6 +95,12 @@ impl Vec3 {
             y: self.z() * v.x() - self.x() * v.z(),
             z: self.x() * v.y() - self.y() * v.x(),
         }
+    }
+}
+
+impl From<[f32; 3]> for Vec3 {
+    fn from(value: [f32; 3]) -> Self {
+        Self::new(value[0], value[1], value[2])
     }
 }
 
