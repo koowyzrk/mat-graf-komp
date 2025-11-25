@@ -1,6 +1,8 @@
 mod matrix;
 mod quat;
 mod vector;
+use std::ops::{Add, Sub};
+
 use matrix::Matrix;
 use quat::*;
 use vector::*;
@@ -11,18 +13,32 @@ fn main() {
 
 pub fn test_quat() {
     let axis_q = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
-    let point = Vec3::from([1.0, 1.0, 0.0]);
+    let point = Vec3::from([-1.0, -1.0, -1.0]);
 
-    let rotated = axis_q.rotate_vector(point);
-
-    println!("{:?}", rotated);
+    let rotated = (axis_q).rotate_vector(point);
+    println!("Obrócony Punkt: {:?}", rotated);
+    let rotated = (axis_q.negate()).rotate_vector(point);
+    println!("Obrócony Punkt: {:?}", rotated);
 
     // testowanko mnożenia kwaternionów
     let q1 = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
-    let q2 = Quat::from_axis_angle([1.0, 1.0, -1.0], 90.);
+    let q2 = Quat::from_axis_angle([1.0, 0.0, 0.0], 90.);
+    println!("Q1: {}\nQ2: {}", q1, q2);
 
-    println!("{}", q1 * q2);
-    println!("{}", q2 * q1);
+    println!("Mnożenie1: {}", q1 * q2);
+    println!("Mnożenie2: {}", q2 * q1);
+
+    let q1 = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
+    let q2 = Quat::from_axis_angle([1.0, 1.0, -1.0], 90.);
+    println!("Dodawanie: {}", q1 + q2);
+
+    let q1 = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
+    let q2 = Quat::from_axis_angle([1.0, 1.0, -1.0], 90.);
+    println!("Odejmowanie: {}", q1 - q2);
+
+    let q1 = Quat::from_axis_angle([1.0, 0.0, 0.0], 270.);
+    let q2 = Quat::from_axis_angle([1.0, 1.0, -1.0], 90.);
+    println!("Dzielenie: {}", q1 / q2);
 }
 
 pub fn test_vector() {

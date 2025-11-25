@@ -1,7 +1,7 @@
 use std::{
-    arch::x86_64::{__m128, _mm_add_ps, _mm_mul_ps, _mm_set_ps, _mm_set1_ps},
+    arch::x86_64::{__m128, _mm_add_ps, _mm_mul_ps, _mm_set_ps, _mm_set1_ps, _mm_sub_ps},
     fmt::Display,
-    ops::{Add, Mul},
+    ops::{Add, Div, Mul, Sub},
 };
 
 use bytemuck::{Pod, Zeroable};
@@ -18,14 +18,6 @@ union UnionCast {
 #[derive(Clone, Copy, Pod, Zeroable, FromBytes, Immutable, IntoBytes, KnownLayout)]
 #[repr(transparent)]
 pub struct Quat(pub(crate) __m128);
-
-impl Display for Quat {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let arr: [f32; 4] = unsafe { UnionCast { v: *self }.a };
-
-        write!(f, "[{}, {}, {}, {}]", arr[0], arr[1], arr[2], arr[3])
-    }
-}
 
 impl Quat {
     const ZERO: Self = Self::from_xyzw(0., 0., 0., 0.);
@@ -62,8 +54,15 @@ impl Quat {
     }
 
     pub fn snorm(self) -> f32 {
-        let times_two_and_add = |(x, y, z, w)| x * x + y * y + z * z + w * w;
-        times_two_and_add(self.into())
+        // let times_two_and_add = |(x, y, z, w)| x * x + y * y + z * z + w * w;
+        // times_two_and_add(self.into())
+        let xd = unsafe {
+            UnionCast {
+                v: Self(_mm_mul_ps(self.0, self.0)),
+            }
+            .a
+        };
+        xd[0] + xd[1] + xd[2] + xd[3]
     }
 
     pub fn inverse(self) -> Self {
@@ -96,6 +95,16 @@ impl Quat {
         let (x, y, z, _) = qp.into();
         [x, y, z]
     }
+
+    pub fn negate(self) -> Self {
+        let (x, y, z, w): (f32, f32, f32, f32) = self.into();
+        return unsafe {
+            UnionCast {
+                a: [-x, -y, -z, -w],
+            }
+            .v
+        };
+    }
 }
 
 impl Add for Quat {
@@ -103,6 +112,14 @@ impl Add for Quat {
 
     fn add(self, rhs: Self) -> Self::Output {
         unsafe { Self(_mm_add_ps(self.0, rhs.0)) }
+    }
+}
+
+impl Sub for Quat {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        unsafe { Self(_mm_sub_ps(self.0, rhs.0)) }
     }
 }
 
@@ -120,6 +137,15 @@ impl Mul for Quat {
             w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2,
             w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2,
         )
+    }
+}
+
+impl Div for Quat {
+    type Output = Self;
+
+    #[inline(always)]
+    fn div(self, rhs: Self) -> Self {
+        self.div(rhs)
     }
 }
 
@@ -161,5 +187,13 @@ impl From<Quat> for (f32, f32, f32, f32) {
             let arr: [f32; 4] = core::mem::transmute(value.0);
             (arr[0], arr[1], arr[2], arr[3])
         }
+    }
+}
+
+impl Display for Quat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let arr: [f32; 4] = unsafe { UnionCast { v: *self }.a };
+
+        write!(f, "[{}, {}, {}, {}]", arr[0], arr[1], arr[2], arr[3])
     }
 }
