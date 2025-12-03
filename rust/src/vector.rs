@@ -1,5 +1,6 @@
 use bytemuck::Zeroable;
 use derive_more::*;
+use std::ops::Add;
 
 use crate::vector::ops::VectorOpsTrait;
 
@@ -142,3 +143,19 @@ impl VectorOpsTrait for Vec3 {
 
 impl VectorTrait for Vec2 {}
 impl VectorTrait for Vec3 {}
+
+impl Add for Vec3 {
+    type Output = Vec3;
+
+    fn add(self, other: Vec3) -> Vec3 {
+        Vec3::new(self.x + other.x, self.y + other.y, self.z + other.z)
+    }
+}
+
+impl<'a, 'b> Add<&'b Vec3> for &'a Vec3 {
+    type Output = Vec3;
+
+    fn add(self, other: &'b Vec3) -> Vec3 {
+        Vec3::new(self.x + other.x, self.y + other.y, self.z + other.z)
+    }
+}
