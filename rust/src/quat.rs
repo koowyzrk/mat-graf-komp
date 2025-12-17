@@ -19,6 +19,12 @@ union UnionCast {
 #[repr(transparent)]
 pub struct Quat(pub(crate) __m128);
 
+impl Default for Quat {
+    fn default() -> Self {
+        Self::from_xyzw(1., 1., 1., 1.)
+    }
+}
+
 impl Quat {
     const ZERO: Self = Self::from_xyzw(0., 0., 0., 0.);
 
@@ -92,7 +98,7 @@ impl Quat {
 
     pub fn rotate_vector(self, v: Vec3) -> [f32; 3] {
         let qp = self * v;
-        let (x, y, z, _) = qp.into();
+        let (x, y, z) = (qp.x, qp.y, qp.z);
         [x, y, z]
     }
 
@@ -150,26 +156,23 @@ impl Div for Quat {
 }
 
 impl Mul<Vec3> for Quat {
-    type Output = Self;
+    type Output = Vec3;
 
     #[inline(always)]
-    fn mul(self, v: Vec3) -> Self {
+    fn mul(self, v: Vec3) -> Vec3 {
         let q = self.normalized();
         let p = Quat::from_xyzw(v.x, v.y, v.z, 0.0);
-        q.mul(p).mul(q.inverse())
+        let rotated = q.mul(p).mul(q.inverse());
+        let (x, y, z, _) = rotated.into();
+        Vec3 { x, y, z }
     }
 }
 
 impl Mul<Quat> for Vec3 {
-    type Output = Self;
+    type Output = Vec3;
 
-    fn mul(self, rhs: Quat) -> Self {
-        let p = Quat::from_xyzw(self.x, self.y, self.z, 0.0);
-
-        let r = rhs.mul(p).mul(rhs.inverse());
-
-        let (x, y, z, _) = r.into();
-        Vec3 { x, y, z }
+    fn mul(self, rhs: Quat) -> Vec3 {
+        rhs * self // just delegate to Quat * Vec3
     }
 }
 

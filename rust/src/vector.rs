@@ -12,7 +12,7 @@ pub struct Vec4 {
     pub z: f32,
     pub w: f32,
 }
-#[derive(Copy, Clone, Debug, PartialEq, Zeroable, From)]
+#[derive(Copy, Clone, Debug, PartialEq, Zeroable, From, Default)]
 #[repr(C)]
 pub struct Vec3 {
     pub x: f32,
@@ -152,10 +152,34 @@ impl Add for Vec3 {
     }
 }
 
-impl<'a, 'b> Add<&'b Vec3> for &'a Vec3 {
+impl Add<&Vec3> for &Vec3 {
     type Output = Vec3;
 
-    fn add(self, other: &'b Vec3) -> Vec3 {
+    fn add(self, other: &Vec3) -> Vec3 {
         Vec3::new(self.x + other.x, self.y + other.y, self.z + other.z)
+    }
+}
+
+impl Vec3 {
+    pub fn to_array(self) -> [f32; 3] {
+        [self.x, self.y, self.z]
+    }
+}
+
+impl From<Vec3> for Vec4 {
+    fn from(v: Vec3) -> Self {
+        Vec4::new(v.x, v.y, v.z, 1.0) // w = 1.0 by default
+    }
+}
+
+impl From<Vec4> for Vec3 {
+    fn from(v: Vec4) -> Self {
+        Vec3::new(v.x, v.y, v.z) // w = 1.0 by default
+    }
+}
+
+impl Vec4 {
+    pub fn to_ndc(self) -> Vec3 {
+        Vec3::new(self.x / self.w, self.y / self.w, self.z / self.w)
     }
 }

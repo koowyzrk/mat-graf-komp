@@ -8,3 +8,6 @@ bytemuck = { version = "*", features = ["derive", "zeroable_atomics"] }
 zerocopy = { version = "*", features = ["derive", "simd"] }
 zerocopy-derive = "0.8.27"
 derive_more = { version = "2", features = ["from", "display", "add"] }
+ratatui = "0.29"
+anyhow = "1.0"
+crossterm = "0.29"

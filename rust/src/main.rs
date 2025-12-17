@@ -1,17 +1,118 @@
 mod geometry;
 mod matrix;
 mod quat;
+mod rays;
 mod vector;
-use std::ops::{Add, Sub};
+use std::{
+    io::stdout,
+    ops::{Add, Sub},
+};
 
-use matrix::Matrix;
+use crossterm::{
+    event::{
+        self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEventKind, MouseButton,
+        MouseEventKind,
+    },
+    execute,
+    terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
+};
+use matrix::Mat;
 use quat::*;
+use ratatui::{
+    Terminal,
+    prelude::CrosstermBackend,
+    style::{Color, Style},
+};
 use vector::*;
 
-use crate::geometry::{Line, Sphere};
+use crate::{
+    geometry::{Line, Sphere},
+    rays::rays::Render,
+};
 
-fn main() {
-    test_geometry();
+fn main() -> anyhow::Result<()> {
+    // 1. Setup terminal (włączamy tryb raw)
+    // UWAGA: Potrzebujemy enable_raw_mode do pełnej obsługi myszki.
+    enable_raw_mode()?;
+
+    // Włączamy AlternateScreen ORAZ Przechwytywanie Myszki
+    execute!(stdout(), EnterAlternateScreen, EnableMouseCapture)?;
+
+    let backend = CrosstermBackend::new(stdout());
+    let mut terminal = Terminal::new(backend)?;
+    terminal.clear()?;
+
+    let mut render = Render::new();
+    let mut is_dragging = false;
+    let mut last_mouse_pos: Option<(u16, u16)> = None;
+
+    loop {
+        if event::poll(std::time::Duration::from_millis(16))? {
+            match event::read()? {
+                // Wyjście z programu
+                Event::Key(key) if key.code == KeyCode::Esc && key.kind == KeyEventKind::Press => {
+                    break;
+                }
+
+                Event::Key(key) if key.kind == KeyEventKind::Press => {
+                    match key.code {
+                        KeyCode::Char('w') => render.apply_rotation(1.0, 0.0, 60f32.to_radians()), // W: Góra (Obrót wokół X)
+                        KeyCode::Char('s') => render.apply_rotation(-1.0, 0.0, 60f32.to_radians()), // S: Dół (Obrót wokół X)
+
+                        KeyCode::Char('a') => render.apply_rotation(0.0, 1.0, 60f32.to_radians()), // A: Lewo (Obrót wokół Y)
+                        KeyCode::Char('d') => render.apply_rotation(0.0, -1.0, 60f32.to_radians()), // D: Prawo (Obrót wokół Y)
+                        _ => {}
+                    }
+                }
+
+                Event::Mouse(event) if event.kind == MouseEventKind::Down(MouseButton::Left) => {
+                    last_mouse_pos = Some((event.column, event.row));
+                }
+
+                Event::Mouse(event) if event.kind == MouseEventKind::Up(MouseButton::Left) => {
+                    last_mouse_pos = None;
+                }
+
+                Event::Mouse(event) if event.kind == MouseEventKind::ScrollUp => {
+                    render.apply_zoom(1.0);
+                }
+
+                // --- Obsługa Scroll Down (Zoom Out) ---
+                Event::Mouse(event) if event.kind == MouseEventKind::ScrollDown => {
+                    render.apply_zoom(-1.0);
+                }
+
+                Event::Mouse(event) if event.kind == MouseEventKind::Drag(MouseButton::Left) => {
+                    if let Some((last_x, last_y)) = last_mouse_pos {
+                        let dx = event.column as f32 - last_x as f32;
+                        let dy = event.row as f32 - last_y as f32;
+
+                        render.apply_rotation(-dy, -dx, 90f32.to_radians());
+
+                        last_mouse_pos = Some((event.column, event.row));
+                    }
+                }
+
+                _ => {}
+            }
+        }
+
+        terminal.draw(|f| {
+            let size = f.area();
+            render.render(size, f); // Pańska funkcja rysująca kostkę
+        })?;
+    }
+
+    // 3. Cleanup (wyłączamy tryb raw)
+    execute!(
+        terminal.backend_mut(),
+        LeaveAlternateScreen,
+        DisableMouseCapture
+    )?;
+    disable_raw_mode()?; // Wyłączamy tryb raw
+    terminal.show_cursor()?;
+
+    Ok(())
 }
 
 pub fn test_quat() {
@@ -58,13 +159,13 @@ pub fn test_vector() {
 }
 
 pub fn test_matrix() {
-    let a = Matrix::new(vec![
+    let a = Mat::new(vec![
         vec![1.0, 2.0, 3.0],
         vec![4.0, 5.0, 6.0],
         vec![7.0, 8.0, 10.0],
     ]);
 
-    let b = Matrix::new(vec![
+    let b = Mat::new(vec![
         vec![2.0, 0.0, 1.0],
         vec![0.0, 1.0, 0.0],
         vec![1.0, 0.0, 1.0],
@@ -85,7 +186,7 @@ pub fn test_matrix() {
     let transpose = a.transpose();
     println!("A^T:\n{}", transpose);
 
-    let mul = a.mul(&b);
+    let mul = &a * &b;
     println!("A * B:\n{}", mul);
 
     let det_a = a.determinant();
@@ -96,23 +197,23 @@ pub fn test_matrix() {
         println!("A^-1:\n{}", inv_a);
 
         // Verify A * A^-1 ≈ I
-        let identity_test = a.mul(&inv_a);
+        let identity_test = a.multiply(&inv_a);
         println!("A * A^-1  Identity:\n{}", identity_test);
     }
 
-    let vec = Matrix::new(vec![vec![1.0], vec![0.0], vec![0.0], vec![1.0]]);
-    let rotation_y_90 = Matrix::rotate_y(std::f32::consts::FRAC_PI_2); // 90 degree
+    let vec = Mat::new(vec![vec![1.0], vec![0.0], vec![0.0], vec![1.0]]);
+    let rotation_y_90 = Mat::rotate_y(std::f32::consts::FRAC_PI_2); // 90 degree
 
-    let rotated_vec = rotation_y_90.mul(&vec);
+    let rotated_vec = rotation_y_90 * vec;
     println!("Vector [1,0,0,1] rotated 90 around y:\n{}", rotated_vec);
 
-    let ab = a.mul(&b);
-    let ba = b.mul(&a);
+    let ab = &a * &b;
+    let ba = b * a;
 
     println!("A * B:\n{}", ab);
     println!("B * A:\n{}", ba);
 
-    let mat = Matrix::scale(3., 3., 3.);
+    let mat = Mat::scale(3., 3., 3.);
     let det = mat.determinant();
     println!("B * A:\n{}", mat);
     println!("{}", det);
